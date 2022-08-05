@@ -1,11 +1,16 @@
-# api_final
-api final
+
+# api_final_yatube
+
+api final_yatube
+
+## Установка проекта 
 
 Клонировать репозиторий и перейти в него в командной строке:
 
-git clone https://github.com/yandex-praktikum/kittygram.git
-cd kittygram
-Cоздать и активировать виртуальное окружение:
+git clone git@github.com:Jaraxxsus/api_final_yatube.git
+cd yatube_api
+
+#### Cоздать и активировать виртуальное окружение:
 
 python3 -m venv env
 source env/bin/activate
