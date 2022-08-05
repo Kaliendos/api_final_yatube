@@ -3,6 +3,7 @@ from django.db import models
 
 User = get_user_model()
 
+
 class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
@@ -21,6 +22,7 @@ class Post(models.Model):
     def __str__(self):
         return self.text
 
+
 class Comment(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='comments')
@@ -30,10 +32,12 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
 
+
 class Group(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     slug = models.SlugField(max_length=50)
+
 
 class Follow(models.Model):
     user = models.ForeignKey(

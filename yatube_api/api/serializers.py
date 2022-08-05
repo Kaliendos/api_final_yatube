@@ -1,9 +1,8 @@
-from django.db.migrations import serializer
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
-from rest_framework.validators import UniqueTogetherValidator, UniqueValidator
+from rest_framework.validators import UniqueTogetherValidator
 
-from posts.models import Comment, Post, Group, Follow, User
+from posts.models import Comment, Follow, Group, Post, User
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -13,16 +12,17 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Post
 
+
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         read_only=True, slug_field='username'
     )
 
-
     class Meta:
         fields = '__all__'
         model = Comment
         read_only_fields = ("post",)
+
 
 class GroupSerializer(serializers.ModelSerializer):
 
@@ -30,18 +30,16 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Group
 
+
 class FollowSerializer(serializers.ModelSerializer):
     following = SlugRelatedField(
         queryset=User.objects.all(),
-        slug_field='username',
-        )
+        slug_field='username')
 
     user = SlugRelatedField(
         slug_field='username',
         queryset=User.objects.all(),
-        default=serializers.CurrentUserDefault(),
-        )
-
+        default=serializers.CurrentUserDefault())
 
     class Meta:
         fields = ('user', 'following')
@@ -50,12 +48,6 @@ class FollowSerializer(serializers.ModelSerializer):
             UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
                 fields=('user', 'following'),
-                message='Подписка уже оформлена'
-            )
+                message='Подписка на этого пользователя уже оформлена'
+            ),
         ]
-
-
-
-
-
-

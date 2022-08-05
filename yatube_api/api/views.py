@@ -1,15 +1,15 @@
-# TODO:  Напишите свой вариант
 from django.shortcuts import get_object_or_404
-from rest_framework import serializers, viewsets, filters
-
+from rest_framework import filters, mixins, serializers, viewsets
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from rest_framework import mixins
+from rest_framework.permissions import (IsAuthenticated,
+                                        IsAuthenticatedOrReadOnly)
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
+from posts.models import Follow, Group, Post
+
 from .permissons import IsAuthorOrReadOnly
-from .serializers import PostSerializer, GroupSerializer, CommentSerializer, FollowSerializer
-from posts.models import Post, Group, Follow
+from .serializers import (CommentSerializer, FollowSerializer,
+                          GroupSerializer, PostSerializer)
 
 
 class PostViewSet(ModelViewSet):
@@ -21,9 +21,11 @@ class PostViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(author=self.request.user)
 
+
 class GroupViewSet(ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
 
 class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer
@@ -42,12 +44,13 @@ class CommentViewSet(ModelViewSet):
             author=self.request.user
         )
 
+
 class FollowViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = FollowSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('following__username',)
+    search_fields = ('following__username', 'user__username')
 
     def get_queryset(self):
         return Follow.objects.filter(user=self.request.user)
@@ -55,16 +58,8 @@ class FollowViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     def perform_create(self, serializer):
         if serializer.validated_data["following"] == self.request.user:
             raise serializers.ValidationError(
-                "Нельзя подписываться на себя"
+                "нельзя подписаться на себя"
             )
         serializer.save(
             user=self.request.user
         )
-
-
-
-
-
-
-
-
