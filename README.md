@@ -40,6 +40,7 @@ python3 manage.py runserver
 
 **GET api/v1/posts/**:
 возвращает список постов:
+```
 response:
  {
         "id": 1,
@@ -57,10 +58,11 @@ response:
         "image": null,
         "group": null
     },
-
+```
 
 **GET api/v1/groups/**:
 возвращает список групп 
+```
 response:
  {
         "id": 1,
@@ -74,6 +76,7 @@ response:
         "description": "О группе 2",
         "slug": "group2"
     }
+```
     
  **Более подробно см. в технической докуентации проекта по адресу /redoc/**
  
