@@ -35,12 +35,33 @@ python3 manage.py runserver
 ```
 ## Примеры:
 
+**Post api/v1/jwt/create/**:
+Создает jwt-токен
+
 **GET api/v1/posts/**:
-возвращает список постов
+возвращает список постов:
+response:
+ {
+        "id": 1,
+        "author": "DartWaidor",
+        "text": "Был пост 1 , а стал пост 111",
+        "pub_date": "2022-08-03T11:06:39.346403Z",
+        "image": null,
+        "group": null
+    },
+    {
+        "id": 2,
+        "author": "DartWaidor",
+        "text": "пост2",
+        "pub_date": "2022-08-03T11:06:56.934611Z",
+        "image": null,
+        "group": null
+    },
 
 
 **GET api/v1/groups/**:
 возвращает список групп 
+response:
  {
         "id": 1,
         "title": "Группа 1",
@@ -54,4 +75,6 @@ python3 manage.py runserver
         "slug": "group2"
     }
     
+ **Более подробно см. в технической докуентации проекта по адресу /redoc/**
+ 
 
