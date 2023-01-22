@@ -8,7 +8,7 @@ api_final_yatube предоставляет api для создания и ре�
 Клонировать [репозиторий](https://github.com/Jaraxxsus/api_final_yatube) и перейти в него в командной строке:
 
 ```
-git clone git@github.com:Jaraxxsus/api_final_yatube.git
+git clone https://github.com/Kaliendos/api_final_yatube.git
 cd yatube_api
 ```
 
